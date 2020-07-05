@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.parstagram.MainActivity;
 import com.example.parstagram.R;
 import com.example.parstagram.models.Comment;
 import com.example.parstagram.models.Post;
@@ -49,8 +50,9 @@ public class ComposeFragment extends Fragment {
 
     protected EditText etDescription;
     protected Button btnTakePicture;
+    protected Button btnSelectImage;
     protected Button btnSubmit;
-    protected ImageView ivPostImage;
+    public ImageView ivPostImage;
     protected File photoFile;
     public String photoFileName = "photo.jpg";
     ProgressBar pb;
@@ -73,6 +75,7 @@ public class ComposeFragment extends Fragment {
 
         etDescription = view.findViewById(R.id.etDescription);
         btnTakePicture = view.findViewById(R.id.btnCaptureImage);
+        btnSelectImage = view.findViewById(R.id.btnSelectImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         pb = view.findViewById(R.id.pbLoading);
@@ -83,6 +86,14 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 launchCamera();
+            }
+        });
+
+
+        btnSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchGallery();
             }
         });
 
@@ -105,6 +116,11 @@ public class ComposeFragment extends Fragment {
             }
         });
     }
+
+    private void launchGallery() {
+        ((MainActivity) getContext()).launchGallery();
+    }
+
     protected void launchCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Create a File reference for future access
